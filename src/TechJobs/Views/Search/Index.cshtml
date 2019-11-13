@@ -10,8 +10,8 @@
                 <input type="radio"
                        name="searchType"
                        id="@column.Key"
-                       value="@column.Key" 
-                       checked="@column.Key == 'all''"/>
+                       value="@column.Key"
+                       checked="@column.Key == 'all''" />
                 <label for="@column.Key">@column.Value</label>
             </span>
         }
@@ -29,8 +29,30 @@
 
 @if (ViewBag.jobs != null)
 {
-
     <h3>@ViewBag.jobs.Count Result(s)</h3>
 
-    // TODO #2 - Loop over jobs dictionary and display all job fields 
+
+    @for (int i = 0; i < ViewBag.jobs.Count; i++)
+    {
+        <table class="job-listing">
+            @foreach (var column in ViewBag.jobs[i])
+            {
+                <tr class="@( i % 2 == 0 ? "even" : "odd" ) ">
+                    <td>
+                        @column.Key
+                    </td>
+                    <td>
+                        <a asp-controller="List"
+                           asp-action="Jobs"
+                           asp-route-column="@column.Key"
+                           asp-route-value="@column.Value">
+                            @column.Value
+                        </a>
+                    </td>
+                </tr>
+
+            }
+        </table>
+    }
 }
+

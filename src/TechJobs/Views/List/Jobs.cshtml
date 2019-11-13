@@ -2,6 +2,30 @@
 
 <h3>@ViewBag.jobs.Count Result(s)</h3>
 
-@{ 
-    // TODO #3 - Use the same list display from Views/Search/Index.cshtml 
+
+@for (int i = 0; i < ViewBag.jobs.Count; i++)
+{
+    <table class="job-listing">
+        @foreach (var column in ViewBag.jobs[i])
+        {
+            <tr class="@( i % 2 == 0 ? "even" : "odd" ) ">
+                <td>
+                    @column.Key
+                </td>
+                <td>
+                    <a asp-controller="List"
+                       asp-action="Jobs"
+                       asp-route-column="@column.Key"
+                       asp-route-value="@column.Value">
+                        @column.Value
+                    </a>
+                </td>
+            </tr>
+
+        }
+    </table>
+}
+
+@{
+    // TODO #3 - Use the same list display from Views/Search/Index.cshtml
 }
